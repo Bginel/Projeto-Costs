@@ -44,10 +44,12 @@ function ProjectForm({ handleSumit, btnText, projectData}) {
   setProject({...project, [e.target.name]: e.target.value})
  }
  function handleCategory(e) {
-  setProject({...project, category:{
-    id: e.target.value,
-    name: e.target.options[e.target.seleactorIndex].text,
-  }})
+  setProject({...project, 
+    category:{
+      id: e.target.selectedIndex,
+      name: e.target.value,
+    },
+  })
  }
 
   return (
@@ -58,7 +60,7 @@ function ProjectForm({ handleSumit, btnText, projectData}) {
         name="name" 
         placeholder="Insira o nome do projeto" 
         handleOnChange={handleChange}
-        defaultValue={project.name ? project.name : ''}
+        value={project.name ? project.name : ''}
         />
       <Input 
         type="number" 
@@ -66,14 +68,14 @@ function ProjectForm({ handleSumit, btnText, projectData}) {
         name="budget" 
         placeholder="Insira o orçamento total" 
         handleOnChange={handleChange}
-        defaultValue={project.budget ? project.budget : ''}
+        value={project.budget ? project.budget : ''}
         />
       <Select 
         name='category_id' 
         text="Selecione a categoria" 
         options={categories} 
         handleOnChange={handleCategory}
-        defaultValue={project.category ? project.category.id : ''}
+        value={project.category ? project.category : ''}
         />
       < SubmitButton text={btnText}/>
     </form>

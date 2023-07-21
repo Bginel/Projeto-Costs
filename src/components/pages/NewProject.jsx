@@ -1,40 +1,32 @@
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import axios from 'axios'
 
 import styles from './NewProject.module.css'
 
 import ProjectForm from '../project/ProjectForm'
 
 function NewProject() {
-  const history = useNavigate()
 
-  async function createPost( project ) {
+  const navegate = useNavigate()
+  const baseURL = 'http://localhost:5000/projects'
 
-    //initialize cost and services
-    project.cost = 0
+  function createPost( project ) {
+
+    project.cost = 0,
     project.services = []
 
-    return await fetch('http://localhost:5000/projects',{
-      method: 'POST',
-      headers: {
-        'Content-Type' : 'application/json'
-      },
-      body: JSON.stringify(project)
+      axios
+      .post(baseURL, project)
+      .then((data) => {
+      //console.log(data)
+      //console.log(project)
+      navegate('/projects',
+        {state:
+          {message:'Projeto criado com sucesso'},
+        }
+      )
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Error! status: ${response.status}`);
-      }
-      return  response.json();
-    })
-    .catch(error => {
-      console.log('error: ', error);
-    })
-    .then((data) => {
-      console.log(data)
-      history.push('/project', {message: 'Projeto criado com sucesso'})
-    })
-}
+  }
  
   return (
     <div className={styles.newproject_container}>

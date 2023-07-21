@@ -10,7 +10,7 @@
   list-style: none;
 }
 .social_list li {
-  margin: 0 1em;
+  margin: 0px 1em;
 }
 .social_list li:hover {
   color: #ffbb33;
